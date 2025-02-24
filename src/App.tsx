@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Provider } from "react-redux";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import CreateUser from "./components/CreateUser";
+import EditUser from "./components/EditUser";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import UsersList from "./components/UsersList";
+import { store } from "./redux/store";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/users" element={<UsersList />} />
+          <Route path="/users/create" element={<CreateUser />} />
+          <Route path="/users/edit/:id" element={<EditUser />} />
+        </Routes>
+      </Router>
+    </Provider>
   );
-}
+};
 
 export default App;
