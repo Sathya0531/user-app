@@ -1,8 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import CreateUser from "./components/CreateUser";
-import EditUser from "./components/EditUser";
+import CreateUserForm from "./components/CreateUserForm";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import UsersList from "./components/UsersList";
@@ -18,8 +17,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/users" element={<UsersList />} />
-            <Route path="/users/create" element={<CreateUser />} />
-            <Route path="/users/edit/:id" element={<EditUser />} />
+            <Route path="/users/create" element={<CreateUserForm />} />
           </Routes>
         </Router>
       </div>

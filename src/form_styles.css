@@ -1,0 +1,104 @@
+.users-container {
+  display: flex;
+  position: relative;
+}
+
+.edit-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.close-btn {
+  color: black;
+  border: 1px solid #ccc;
+  padding: 5px;
+  cursor: pointer;
+  float: right;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.create-form {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 40%;
+  margin-right: 50px;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    .form-lable {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  .form-lable {
+    margin-bottom: 10px;
+  }
+}
+
+.form-group label {
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  /* justify-content: space-between; */
+  justify-content: flex-end;
+  margin-top: 50px;
+}
+
+.save-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.save-btn:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  color: black;
+  border: 2px solid grey;
+  background-color: white;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 2px;
+  font-size: 16px;
+}
+
+.cancel-btn:hover {
+  background-color: #a71d2a;
+}

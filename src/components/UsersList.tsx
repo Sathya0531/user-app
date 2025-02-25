@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AppDispatch, RootState } from "../redux/store";
-import { deleteUser, fetchUsers } from "../redux/userSlice";
+import { deleteUser, fetchUsers, updateUser, User } from "../redux/userSlice";
 import "../styles.css"; // Import styles
 import SearchBar from "./SearchBar";
 import UsersGrid from "./UsersGrid";
@@ -77,8 +77,20 @@ const UsersList: React.FC = () => {
   if (loading) return <p>Loading users...</p>;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
-  const handleDelete = (id: number) => {
-    dispatch(deleteUser(id));
+  const handleDelete = async (id: number) => {
+    try {
+      await dispatch(deleteUser(id));
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
+  const handleUpdateUser = async (id: number, userData: User) => {
+    try {
+      await dispatch(updateUser({ id, userData }));
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
   };
 
   // **Filter users based on search text**
@@ -119,9 +131,17 @@ const UsersList: React.FC = () => {
       </div>
 
       {viewMode === "table" ? (
-        <UsersTable users={filteredUsers} onDeleteUser={handleDelete} />
+        <UsersTable
+          users={filteredUsers}
+          onDeleteUser={handleDelete}
+          onUpdateUser={handleUpdateUser}
+        />
       ) : (
-        <UsersGrid users={filteredUsers} onDeleteUser={handleDelete} />
+        <UsersGrid
+          users={filteredUsers}
+          onDeleteUser={handleDelete}
+          onUpdateUser={handleUpdateUser}
+        />
       )}
 
       <Pagination

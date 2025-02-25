@@ -6,8 +6,6 @@ const API_URL = "https://reqres.in/api/users";
 export interface User {
   id: number;
   email: string;
-  name: string;
-  job?: string;
   first_name: string;
   last_name: string;
   avatar: string;

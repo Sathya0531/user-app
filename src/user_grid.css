@@ -1,0 +1,34 @@
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.modal-content {
+  background: rgba(210, 180, 140, 0.4);
+  .action-buttons {
+    margin-top: 40%;
+  }
+  margin-top: 5px;
+  border-radius: 10px;
+}
+
+.edit-icon {
+  background: blue;
+  color: white;
+}
+
+.delete-icon {
+  background: red;
+  color: white;
+}
+
+.icon-btn:hover {
+  opacity: 0.8;
+}

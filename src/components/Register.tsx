@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/authSlice";
-import { RootState, AppDispatch } from "../redux/store";
+import { AppDispatch, RootState } from "../redux/store";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -23,12 +23,14 @@ const Register: React.FC = () => {
         <input
           type="email"
           value={email}
+          placeholder="please enter email"
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
           value={password}
+          placeholder="please enter password"
           onChange={(e) => setPassword(e.target.value)}
           required
         />
