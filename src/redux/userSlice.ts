@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const API_URL = "https://reqres.in/api/users";
 
-interface User {
+export interface User {
   id: number;
   email: string;
   name: string;
@@ -17,22 +17,26 @@ interface UsersState {
   users: User[];
   loading: boolean;
   error: string | null;
+  totalPages: number;
+  currentPage: number;
 }
 
 // Initial state
 const initialState: UsersState = {
   users: [],
   loading: false,
+  totalPages: 1, // Default value
+  currentPage: 1, // Default value
   error: null,
 };
 
 // Fetch users
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
-  async (_, { rejectWithValue }) => {
+  async (page: number, { rejectWithValue }) => {
     try {
-      const response = await axios.get(API_URL);
-      return response.data.data; // API returns users inside `data` field
+      const response = await axios.get(`${API_URL}?page=${page}`);
+      return response.data; // Return full response including `total_pages`
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.error || "Failed to fetch users"
@@ -74,6 +78,20 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  "users/deleteUser",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      return id;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.error || "Failed to delete user"
+      );
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "users",
   initialState,
@@ -82,17 +100,23 @@ const userSlice = createSlice({
     builder
       .addCase(fetchUsers.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.loading = false;
-        state.users = action.payload;
+        state.users = action.payload.data; // API returns users inside `data`
+        state.totalPages = action.payload.total_pages; // Update total pages
+        state.currentPage = action.payload.page; // Update current page
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = "Failed to fetch users...";
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.users.push(action.payload); // Add new user to list
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.users = state.users.filter((user) => user.id !== action.payload);
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         const index = state.users.findIndex(
