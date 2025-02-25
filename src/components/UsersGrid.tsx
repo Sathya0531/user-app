@@ -3,8 +3,8 @@ import { User } from "../redux/userSlice";
 
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../styles.css";
-import "../user_grid.css";
+import "../styles/styles.css";
+import "../styles/user_grid.css";
 
 import EditUserForm from "./EditUserForm";
 

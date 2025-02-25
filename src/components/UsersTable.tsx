@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../form_styles.css";
+import "../styles/form_styles.css";
 import { User } from "../redux/userSlice";
 import EditUserForm from "./EditUserForm"; // Create this component
 

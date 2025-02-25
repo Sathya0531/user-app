@@ -4,62 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AppDispatch, RootState } from "../redux/store";
 import { deleteUser, fetchUsers, updateUser, User } from "../redux/userSlice";
-import "../styles.css"; // Import styles
+import "../styles/styles.css";
+import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import UsersGrid from "./UsersGrid";
 import UsersTable from "./UsersTable";
-
-interface PaginationProps {
-  totalPages: number;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-}
-
-const Pagination: React.FC<PaginationProps> = ({
-  totalPages,
-  onPageChange,
-  currentPage,
-}) => {
-  const getPageNumbers = () => {
-    if (totalPages <= 3) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
-    }
-    if (currentPage <= 2) {
-      return [1, 2, 3];
-    } else if (currentPage >= totalPages - 1) {
-      return [totalPages - 2, totalPages - 1, totalPages];
-    }
-    return [currentPage - 1, currentPage, currentPage + 1];
-  };
-
-  return (
-    <div className="pagination-btn-container">
-      <button
-        className="pagination-btn"
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        {"<"}
-      </button>
-      {getPageNumbers().map((page) => (
-        <button
-          key={page}
-          className={`pagination-btn ${page === currentPage ? "selected" : ""}`}
-          onClick={() => onPageChange(page)}
-        >
-          {page}
-        </button>
-      ))}
-      <button
-        className="pagination-btn"
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        {">"}
-      </button>
-    </div>
-  );
-};
 
 const UsersList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -145,8 +94,8 @@ const UsersList: React.FC = () => {
       )}
 
       <Pagination
-        totalPages={totalPages} // Use API response
-        onPageChange={(page) => dispatch(fetchUsers(page))}
+        totalPages={totalPages}
+        onPageChange={(page: number) => dispatch(fetchUsers(page))}
         currentPage={currentPage}
       />
     </div>

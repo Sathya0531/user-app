@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "../login.css";
+import "../styles/login.css";
 import { loginUser } from "../redux/authSlice";
 
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
